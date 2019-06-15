@@ -1,3 +1,7 @@
+// The main parser... no depends!
+
+const debug = false;
+
 class EOFError extends Error {
     constructor(message, line, column, pos) {
         super(message);
@@ -259,7 +263,10 @@ const parseValueList = function (tokenStream, line, column) {
     while (true) {
         let value = parseValue(tokenStream);
 
-        console.log("parseValueList value", value);
+        if (debug) {
+            console.log("parseValueList value", value);
+        }
+
         if (["object", "array",
              "string", "boolean", "identfier"].indexOf(value.type) > -1) {
             list.push(value);
@@ -346,7 +353,9 @@ const parseValue = function (tokenStream) {
         return token;
     }
 
-    console.log("parseValue unknown type", token);
+    if (debug) {
+        console.log("parseValue unknown type", token);
+    }
 };
 
 

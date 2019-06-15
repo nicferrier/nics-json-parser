@@ -51,9 +51,9 @@ ObjectValue {
 How to program with it? Well, for example, in Node:
 
 ```javascript
-const jsonparser = require("nics-jsonparser");
+const jsonParser = require("@nicferrier/json-parser");
 
-const jsonDocument = jsonparser(`{
+const jsonDocument = jsonParser(`{
    "a": "10",
    "b": "20",
    "c": [

@@ -1,6 +1,6 @@
 // commonjs version
 
-const parser = require("./parser");
+const parser = require("./parser.js");
 
 module.exports = function (string) {
     const stream = parser.streamFunc(string);

@@ -1,4 +1,4 @@
-const parse = require("./www/parser.js");
+const parse = require("./parser.js");
 const assert = require("assert");
 
 const tests = {
@@ -185,8 +185,8 @@ const tests = {
 
         assert.ok(value5.get(1).get("spanish").get("greeting") == "ola");
 
-        console.log("value5", JSON.stringify(value5, null, 2));
-        console.log("value5 valueOf", JSON.stringify(value5.valueOf(), null, 2));
+        // console.log("value5", JSON.stringify(value5, null, 2));
+        // console.log("value5 valueOf", JSON.stringify(value5.valueOf(), null, 2));
     },
 
     testErrors: function () {
@@ -205,6 +205,6 @@ tests.testStream();
 tests.testReadString();
 tests.testReadToken();
 tests.testParseValue();
-tests.testErrors();
+// tests.testErrors();
 
 // End
