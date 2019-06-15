@@ -1,6 +1,6 @@
 // The main parser... no depends!
 
-const debug = true;
+const debug = false;
 
 class EOFError extends Error {
     constructor(message, line, column, pos) {

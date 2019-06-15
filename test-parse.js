@@ -232,10 +232,10 @@ const tests = {
 
 
 // Run the tests
-//tests.testStream();
-//tests.testReadString();
-//tests.testReadToken();
-//tests.testParseValue();
+tests.testStream();
+tests.testReadString();
+tests.testReadToken();
+tests.testParseValue();
 tests.testErrors();
 
 // End
