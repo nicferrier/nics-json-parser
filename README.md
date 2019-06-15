@@ -77,6 +77,21 @@ data.c[1] === "world";
 jsonDocument.get("c").get(1) == "world";
 ```
 
+### What about errors?
+
+```javascript
+const jsonParser = require("@nicferrier/json-parser");
+
+const bad = `{ true: "hello" }`;
+try {
+    jsonParser(bad);
+}
+catch (e) {
+    assert.ok(e instanceof jsonParser.KeyTypeError);
+    assert.ok(e.line === 0);
+    assert.ok(e.column === 2);
+}
+```
 
 ## Objects returned
 
@@ -111,13 +126,46 @@ are `ArrayValue` types which have the following methods:
   
 * `valueOf()` returns a Javascript native `Array` representation of
   this `ArrayValue`.
-  
+
 In addition, `line` and `column` properties are supported as well as
 the `length` propertym which always states the count of the actual
 elements in the `ArrayValue`.
 
 
 JSON numeric types are *not currently supported* by the parser.
+
+
+## What errors are produced?
+
+`EOFError` is thrown when there are expectations of input but none
+exists; for example:
+
+```javascript
+{ "a"
+```
+
+will throw `EOFError` and give the line and column of the error, which
+is where the input runs out.
+
+`KeyError` is thrown when a key is not properly terminated with a
+colon, for example:
+
+```javascript
+{ "a" "hello"
+```
+
+The `KeyError` will point at the column starting `"hello"` because
+that is the token that invalidates our colon expectation.
+
+`KeyTypeError` is thrown when a key is not the correct `"string"`
+type; for example:
+
+```javascript
+{ true: "hello" }
+```
+
+throws a `KeyTypeError` at `true` because that is not a legal key
+value in JSON.
 
 
 ## How the source files are arranged

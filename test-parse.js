@@ -190,21 +190,52 @@ const tests = {
     },
 
     testErrors: function () {
-        const stream = parse.streamFunc(`{
+        const source = `{
       "french" "hello"
-}`);
-        const tokenStream = parse.tokenStream(stream);
-        const value = parse.parseValue(tokenStream);
-        
+}`;
+        try {
+            parse.parseSource(source);
+        }
+        catch (e) {
+            assert.ok(e instanceof parse.KeyError);
+            assert.ok(e.line === 1);
+            assert.ok(e.column === 15);
+        }
+
+        const source2 = `{
+      "french": "hello",
+`;
+        try {
+            parse.parseSource(source2);
+        }
+        catch (e) {
+            assert.ok(e instanceof parse.EOFError);
+            assert.ok(e.line === 2);
+            assert.ok(e.column === 0);
+        }
+
+        const source3 = `{
+      true: "hello",
+      "adieu": "goodbye"
+}`;
+        try {
+            parse.parseSource(source3);
+        }
+        catch (e) {
+            assert.ok(e instanceof parse.KeyTypeError);
+            assert.ok(e.line === 1);
+            assert.ok(e.column === 6);
+        }
+
     }
 }
 
 
 // Run the tests
-tests.testStream();
-tests.testReadString();
-tests.testReadToken();
-tests.testParseValue();
-// tests.testErrors();
+//tests.testStream();
+//tests.testReadString();
+//tests.testReadToken();
+//tests.testParseValue();
+tests.testErrors();
 
 // End

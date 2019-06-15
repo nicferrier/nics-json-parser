@@ -1,6 +1,6 @@
 // The main parser... no depends!
 
-const debug = false;
+const debug = true;
 
 class EOFError extends Error {
     constructor(message, line, column, pos) {
@@ -200,7 +200,8 @@ const tokenStream = function* (stream) {
     }
     catch (e) {
         if (e instanceof EOFError) {
-            return endOfFile;
+            //return endOfFile;
+            throw e;
         }
     }
 };
@@ -257,6 +258,24 @@ class ObjectValue {
     }
 }
 
+class KeyError extends Error {
+    constructor(message, token) {
+        super(message);
+        this.token = token;
+        this.line = token.line;
+        this.column = token.column;
+    }
+}
+
+class KeyTypeError extends Error {
+    constructor(message, token) {
+        super(message);
+        this.token = token;
+        this.line = token.line;
+        this.column = token.column;
+    }
+}
+
 const parseValueList = function (tokenStream, line, column) {
     const list = new ArrayValue(line, column);
 
@@ -297,12 +316,12 @@ const parsePairList = function (tokenStream, line, column) {
     }
     while (true) {
         if (key.type !== "string") {
-            // Error! what shall we do?
+            throw new KeyTypeError("expecting a string key", key);
         }
 
         const expectedColon = tokenStream.next().value;
         if (expectedColon.type !== "colon") {
-            // Error! what shall we do?
+            throw new KeyError("expecting a colon", expectedColon);
         }
 
         const value = parseValue(tokenStream);
@@ -358,6 +377,12 @@ const parseValue = function (tokenStream) {
     }
 };
 
+const parseSource = function (source) {
+    const stream = streamFunc(source);
+    const tokStream = tokenStream(stream);
+    const value = parseValue(tokStream);
+    return value;
+};
 
 exports.streamFunc = streamFunc;
 exports.EOFError = EOFError;
@@ -365,5 +390,11 @@ exports.readString = readString;
 exports.parseArray = parseArray;
 exports.tokenStream = tokenStream;
 exports.parseValue = parseValue;
+exports.parseSource = parseSource;
+
+// Some errors
+exports.EOFError = EOFError;
+exports.KeyError = KeyError;
+exports.KeyTypeError = KeyTypeError;
 
 // End
