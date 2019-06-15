@@ -1,0 +1,12 @@
+{
+  "name": "nics-jsonparser",
+  "version": "0.0.1",
+  "description": "A JSON parser that returns accurate JSON document objects.",
+  "main": "jsonparser.js",
+  "scripts": {
+    "test": "node test-parser.js && node test-jsonparser.js"
+  },
+  "keywords": ["json", "parsing"],
+  "author": "Nic Ferrier, <ferriernic@gmail.com>",
+  "license": "ISC"
+}
