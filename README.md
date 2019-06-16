@@ -30,7 +30,7 @@ For example:
 }
 ```
 
-Becomes:
+Becomes, in print form:
 
 ```javascript
 ObjectValue {
@@ -128,7 +128,7 @@ are `ArrayValue` types which have the following methods:
   this `ArrayValue`.
 
 In addition, `line` and `column` properties are supported as well as
-the `length` propertym which always states the count of the actual
+the `length` property which always states the count of the actual
 elements in the `ArrayValue`.
 
 
