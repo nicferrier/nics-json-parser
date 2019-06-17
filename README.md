@@ -168,11 +168,6 @@ throws a `KeyTypeError` at `true` because that is not a legal key
 value in JSON.
 
 
-## How the source files are arranged
+## Hacking
 
-[parser.js](parser.js) is the implementation of the parser; it exposes
-a lot of functions for the purposes of testing.
-
-[jsonparser.js](jsonparser.js) imports parser.js and exposes a simple
-one function interface that parses JSON in a string.
-
+For details of how to hack on this see [HACKING.md](HACKING.md).
