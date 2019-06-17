@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import jsonparser from "./jsonparser.js";
+import jsonparser from "./jsonparser.mjs";
 
 const debug = false;
 

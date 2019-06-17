@@ -384,8 +384,12 @@ const parseSource = function (source) {
     return value;
 };
 
+// Attach these to parseSource so they get through to the ES6
+parseSource.EOFError = EOFError;
+parseSource.KeyError = KeyError;
+parseSource.KeyTypeError = KeyTypeError;
+
 exports.streamFunc = streamFunc;
-exports.EOFError = EOFError;
 exports.readString = readString;
 exports.parseArray = parseArray;
 exports.tokenStream = tokenStream;
