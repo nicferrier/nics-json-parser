@@ -4,7 +4,8 @@
   "description": "A JSON parser that returns accurate JSON document objects.",
   "main": "jsonparser.js",
   "scripts": {
-    "test": "node test-parse.js && node test-jsonparser.js"
+    "test": "node test-parse.js && node test-jsonparser.js && node --experimental-modules test-jsonparser.mjs",
+    "prepare": "node_modules/.bin/common2es6 write parser.js jsonparser.js"
   },
   "keywords": [
     "json",
@@ -12,5 +13,10 @@
   ],
   "author": "Nic Ferrier, <ferriernic@gmail.com>",
   "license": "ISC",
-  "repository": "nicferrier/nics-json-parser"
+  "repository": "nicferrier/nics-json-parser",
+  "devDependencies": {
+    "@nicferrier/common2es6": "^0.1.0",
+    "acorn": "^6.1.1",
+    "escodegen": "^1.11.1"
+  }
 }
