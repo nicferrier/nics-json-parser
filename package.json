@@ -1,6 +1,6 @@
 {
   "name": "@nicferrier/json-parser",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A JSON parser that returns accurate JSON document objects.",
   "main": "jsonparser.js",
   "scripts": {
