@@ -37,4 +37,3 @@ tests the ES6 version of the json parser.
 That test is run with Node's `--experimental-modules` to ensure Node
 will see it as an ES6 file.
 
-
