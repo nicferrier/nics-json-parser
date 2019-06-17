@@ -137,6 +137,11 @@ JSON numeric types are *not currently supported* by the parser.
 
 ## What errors are produced?
 
+All errors are extensions of `ParserSntaxError` which extends from
+`SyntaxError` which is a normal Javascript error.
+
+All errors are maintained on the parser function for ease of import.
+
 `EOFError` is thrown when there are expectations of input but none
 exists; for example:
 

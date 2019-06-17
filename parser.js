@@ -2,12 +2,18 @@
 
 const debug = false;
 
-class EOFError extends Error {
+class ParserSyntaxError extends SyntaxError {
     constructor(message, line, column, pos) {
         super(message);
         this.line = line;
         this.column = column;
         this.pos = pos;
+    }
+};
+
+class EOFError extends ParserSyntaxError {
+    constructor(message, line, column, pos) {
+        super(message, line, column, pos);
     }
 }
 
@@ -258,27 +264,25 @@ class ObjectValue {
     }
 }
 
-class KeyError extends Error {
+class KeyError extends ParserSyntaxError {
     constructor(message, token) {
-        super(message);
+        super(message, token.line, token.column);
+        this.token = token;
+    }
+}
+
+class KeyTypeError extends ParserSyntaxError {
+    constructor(message, token) {
+        super(message, token.line, token.column);
         this.token = token;
         this.line = token.line;
         this.column = token.column;
     }
 }
 
-class KeyTypeError extends Error {
+class UnexpectedTypeError extends ParserSyntaxError {
     constructor(message, token) {
-        super(message);
-        this.token = token;
-        this.line = token.line;
-        this.column = token.column;
-    }
-}
-
-class UnexpectedTypeError extends Error {
-    constructor(message, token) {
-        super(message);
+        super(message, token.line, token.column);
         this.token = token;
         this.line = token.line;
         this.column = token.column;
@@ -399,6 +403,7 @@ const parseSource = function (source) {
 };
 
 // Attach these to parseSource so they get through to the ES6
+parseSource.ParserSyntaxError = ParserSyntaxError;
 parseSource.EOFError = EOFError;
 parseSource.KeyError = KeyError;
 parseSource.KeyTypeError = KeyTypeError;
@@ -412,6 +417,7 @@ exports.parseValue = parseValue;
 exports.parseSource = parseSource;
 
 // Some errors
+exports.ParserSyntaxError = ParserSyntaxError;
 exports.EOFError = EOFError;
 exports.KeyError = KeyError;
 exports.KeyTypeError = KeyTypeError;
