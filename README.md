@@ -167,6 +167,19 @@ type; for example:
 throws a `KeyTypeError` at `true` because that is not a legal key
 value in JSON.
 
+`UnexpectedTypeError` is thrown when a value is not followed by a
+comma or a legal ending token; for example when you forget the comma:
+
+```javascript
+{
+  "greeting": "hi"
+  "farewall": "by-by"
+}
+```
+
+There's no comma after the `"hi"` so the next token is a string... not
+what the parser expects so it throws the error.
+
 
 ## Hacking
 

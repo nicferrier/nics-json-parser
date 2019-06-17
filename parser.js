@@ -276,6 +276,15 @@ class KeyTypeError extends Error {
     }
 }
 
+class UnexpectedTypeError extends Error {
+    constructor(message, token) {
+        super(message);
+        this.token = token;
+        this.line = token.line;
+        this.column = token.column;
+    }
+}
+
 const parseValueList = function (tokenStream, line, column) {
     const list = new ArrayValue(line, column);
 
@@ -343,6 +352,11 @@ const parseObject = function (tokenStream, line, column) {
     if (terminalToken.type === "braceClose") {
         return obj;
     }
+
+    throw new UnexpectedTypeError(
+        `unexpected type ${terminalToken.valueOf()} at ${terminalToken.line}:${terminalToken.column}`,
+        terminalToken
+    );
 };
 
 const parseValue = function (tokenStream) {
@@ -388,6 +402,7 @@ const parseSource = function (source) {
 parseSource.EOFError = EOFError;
 parseSource.KeyError = KeyError;
 parseSource.KeyTypeError = KeyTypeError;
+parseSource.UnexpectedTypeError = UnexpectedTypeError;
 
 exports.streamFunc = streamFunc;
 exports.readString = readString;
@@ -400,5 +415,6 @@ exports.parseSource = parseSource;
 exports.EOFError = EOFError;
 exports.KeyError = KeyError;
 exports.KeyTypeError = KeyTypeError;
+exports.UnexpectedTypeError = UnexpectedTypeError;
 
 // End

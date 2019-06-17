@@ -12,6 +12,7 @@ const test = function () {
     const jsonObject = jsonparser(jsonStr);
     assert.deepStrictEqual(JSON.parse(jsonStr), jsonObject.valueOf());
 
+
     const jsonStr2 = `{ true: "hello" }`;
     try {
         jsonparser(jsonStr2);

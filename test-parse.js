@@ -227,11 +227,26 @@ const tests = {
             assert.ok(e.column === 6);
         }
 
+        const source4 = `{
+      "greeting": "hello"
+      "adieu": "goodbye"
+}`;
+        try {
+            const result = parse.parseSource(source4);
+            console.log("result", result);
+        }
+        catch (e) {
+            assert.ok(e instanceof parse.UnexpectedTypeError);
+            assert.ok(e.line === 2);
+            assert.ok(e.column === 6);
+        }
+
     }
 }
 
 
 // Run the tests
+
 tests.testStream();
 tests.testReadString();
 tests.testReadToken();
