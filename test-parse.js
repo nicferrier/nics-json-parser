@@ -189,6 +189,28 @@ const tests = {
         // console.log("value5 valueOf", JSON.stringify(value5.valueOf(), null, 2));
     },
 
+    testTokenAPI: function () {
+        const source = `{
+   "a": "first letter",
+   "b": "second letter",
+   "numbers": {
+       "1": "first number",
+       "0": "first number - 1",
+       "2": "2nd number"
+   }
+}`;
+        const jsonDoc = parse.parseSource(source);
+        assert.ok(jsonDoc.get("a") == "first letter");
+        assert.ok(jsonDoc.get("a").line === 1);
+        assert.ok(jsonDoc.get("b").valueOf() === "second letter");
+        assert.ok(jsonDoc.get("b").line === 2);
+        assert.ok(jsonDoc.get("numbers").get("1") == "first number");
+        assert.ok(jsonDoc.get("numbers").get("1").line === 4);
+
+        assert.ok(jsonDoc.getKey("numbers").line === 3);
+        assert.ok(jsonDoc.get("numbers").getKey("1").line === 4);
+    },
+
     testErrors: function () {
         const source = `{
       "french" "hello"
@@ -267,6 +289,7 @@ tests.testStream();
 tests.testReadString();
 tests.testReadToken();
 tests.testParseValue();
+tests.testTokenAPI();
 tests.testErrors();
 
 // End

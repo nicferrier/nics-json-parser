@@ -242,9 +242,14 @@ class ArrayValue {
 class ObjectValue {
     constructor(line, column) {
         this.type = "object";
+        this.keys = {};
         this.elements = {};
         this.line = line;
         this.column = column;
+    }
+
+    getKey(key) {
+        return this.keys[key];
     }
 
     get(key) {
@@ -252,6 +257,7 @@ class ObjectValue {
     }
 
     set(key, value) {
+        this.keys[key.valueOf()] = key;
         this.elements[key] = value;
     }
 

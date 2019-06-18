@@ -105,6 +105,10 @@ additional properties of `line` and `column`.
 JSON object types, which are key: value sets are `ObjectValue` types
 which have the following methods:
 
+* `getKey(key)` given a key in the map returns the token
+  representation of the key; the token representation has the line and
+  column proeprties on it
+
 * `get(key)` given a key in the map, returns the representation of the
   value
   
@@ -115,6 +119,7 @@ which have the following methods:
   this `ObjectValue`.
   
 In addition the `line` and `column` properties are supported.
+
 
 JSON array types, which are dynamically extendable lists of values,
 are `ArrayValue` types which have the following methods:
