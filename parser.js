@@ -319,6 +319,11 @@ const parseArray = function (tokenStream, line, column) {
     if (terminalToken.type === "bracketClose") {
         return list;
     }
+
+    throw new UnexpectedTypeError(
+        `unexpected type ${terminalToken.valueOf()} at ${terminalToken.line}:${terminalToken.column}`,
+        terminalToken
+    );
 };
 
 const parsePairList = function (tokenStream, line, column) {

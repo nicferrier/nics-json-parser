@@ -227,12 +227,28 @@ const tests = {
             assert.ok(e.column === 6);
         }
 
+        // Test that missing a comma raises an error
         const source4 = `{
       "greeting": "hello"
       "adieu": "goodbye"
 }`;
         try {
             const result = parse.parseSource(source4);
+            console.log("result", result);
+        }
+        catch (e) {
+            assert.ok(e instanceof parse.UnexpectedTypeError);
+            assert.ok(e.line === 2);
+            assert.ok(e.column === 6);
+        }
+
+        // Test the same thing in an array
+        const source5 = `[
+      "hello"
+      "adieu" "goodbye"
+]`;
+        try {
+            const result = parse.parseSource(source5);
             console.log("result", result);
         }
         catch (e) {
